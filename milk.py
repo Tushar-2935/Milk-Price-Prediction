@@ -566,8 +566,6 @@ plt.ylabel("Milk Price")
 plt.legend()
 plt.show()
 
-
-# %% [markdown]
 # # **XG boost**
 
 # %%
@@ -960,6 +958,7 @@ with tab3:
     ax3.set_ylabel("Milk Price")
     ax3.legend()
     st.pyplot(fig3, clear_figure=True)
+
 
 
 
