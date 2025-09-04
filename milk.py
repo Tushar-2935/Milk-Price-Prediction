@@ -142,9 +142,8 @@ plt.legend()
 plt.show()
 
 
-# %%
 fig1 = plot_plotly(model1, forecast_test)
-fig1.show()
+st.plotly_chart(fig1, use_container_width=True)
 
 # %%
 # Refit Prophet on the full dataset (till end of 2025)
@@ -961,5 +960,6 @@ with tab3:
     ax3.set_ylabel("Milk Price")
     ax3.legend()
     st.pyplot(fig3, clear_figure=True)
+
 
 
