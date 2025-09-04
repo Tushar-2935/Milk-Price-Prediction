@@ -8,3 +8,4 @@ prophet
 streamlit
 tqdm
 joblib
+plotly
