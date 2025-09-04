@@ -3,10 +3,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-
-#reading the dataset
-data = pd.read_csv(r'C:\Users\hp\Downloads\milk_price_prediction_maharashtra_2015_2025_daily_final.csv')
-data.head()
+import os
+DATA_PATH = os.path.join(os.path.dirname(__file__), "milk_price_prediction_maharashtra_2015_2025_daily_final.csv")
+data = pd.read_csv(DATA_PATH, parse_dates=["date"])
 
 data.shape
 
@@ -962,4 +961,5 @@ with tab3:
     ax3.set_ylabel("Milk Price")
     ax3.legend()
     st.pyplot(fig3, clear_figure=True)
+
 
