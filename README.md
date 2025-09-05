@@ -32,3 +32,7 @@ Hybrid Ensemble
 Prophet outperformed other models with MAPE ≈ 1.5%.
 
 Forecast shows stable upward trend in 2026, with moderate uncertainty (±2 Rs).
+
+
+Authors:
+Tushar and Gaurav
