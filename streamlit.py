@@ -23,7 +23,6 @@ st.sidebar.header("Options")
 show_raw = st.sidebar.checkbox("Show raw data")
 show_corr = st.sidebar.checkbox("Show correlation heatmap")
 show_prophet = st.sidebar.checkbox("Show Prophet Analysis")
-show_trend = st.sidebar.checkbox("Actual Vs Prediction")
 show_scenario_analysis = st.sidebar.checkbox("Scenario Analysis")
 
 # Show raw data
@@ -42,28 +41,7 @@ if show_corr:
     )
     st.pyplot(fig)
 
-# Time series trend
-if show_trend:
-    st.subheader("📊 Forecast vs Actual (Backtesting)")
 
-    # Compare last 2 years of actual vs forecast
-    history_years = [2023, 2024, 2025]
-    actual = prophet_data[prophet_data['ds'].dt.year.isin(history_years)]
-    forecast_hist = forecast[forecast['ds'].dt.year.isin(history_years)]
-
-    # Merge
-    comparison = pd.merge(actual, forecast_hist[['ds', 'yhat']], on='ds', how='inner')
-
-    # Plot
-    fig_acc, ax_acc = plt.subplots(figsize=(10, 4))
-    ax_acc.plot(comparison['ds'], comparison['y'], label="Actual", color="black")
-    ax_acc.plot(comparison['ds'], comparison['yhat'], label="Forecast", color="orange")
-    ax_acc.set_title("Actual vs Forecasted Milk Prices")
-    ax_acc.set_xlabel("Date")
-    ax_acc.set_ylabel("Price")
-    ax_acc.legend()
-    st.pyplot(fig_acc, clear_figure=True)
-# Boxplots by month & year
 if show_prophet:
     st.subheader("Milk Price Forecast (Prophet Model)")
 
@@ -95,6 +73,26 @@ if show_prophet:
     ax2.set_ylabel("Milk Price")
     ax2.legend()
     st.pyplot(fig2, clear_figure=True)
+
+    st.subheader("📊 Forecast vs Actual (Backtesting)")
+    
+        # Compare last 2 years of actual vs forecast
+        history_years = [2023, 2024, 2025]
+        actual = prophet_data[prophet_data['ds'].dt.year.isin(history_years)]
+        forecast_hist = forecast[forecast['ds'].dt.year.isin(history_years)]
+    
+        # Merge
+        comparison = pd.merge(actual, forecast_hist[['ds', 'yhat']], on='ds', how='inner')
+    
+        # Plot
+        fig_acc, ax_acc = plt.subplots(figsize=(10, 4))
+        ax_acc.plot(comparison['ds'], comparison['y'], label="Actual", color="black")
+        ax_acc.plot(comparison['ds'], comparison['yhat'], label="Forecast", color="orange")
+        ax_acc.set_title("Actual vs Forecasted Milk Prices")
+        ax_acc.set_xlabel("Date")
+        ax_acc.set_ylabel("Price")
+        ax_acc.legend()
+        st.pyplot(fig_acc, clear_figure=True)
 # Prophet forecasting
 if show_scenario_analysis:
     st.subheader("Scenario Analysis")
