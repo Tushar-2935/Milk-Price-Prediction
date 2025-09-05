@@ -110,3 +110,28 @@ ax_acc.set_xlabel("Date")
 ax_acc.set_ylabel("Price")
 ax_acc.legend()
 st.pyplot(fig_acc, clear_figure=True)
+
+st.subheader("Scenario Analysis")
+
+feed_cost_change = st.slider("Feed Cost Change (%)", -20, 20, 0)
+inflation_change = st.slider("Inflation Change (%)", -20, 20, 0)
+
+st.write(f"📌 Scenario: Feed cost {feed_cost_change}%, Inflation {inflation_change}%")
+
+    # Apply adjustments
+scenario_forecast = forecast.copy()
+scenario_forecast['yhat'] = (scenario_forecast['yhat'] * (1 + feed_cost_change/100 + inflation_change/200))
+
+    # Show for 2026 as example
+forecast_2026 = forecast[forecast['ds'].dt.year == 2026]
+scenario_2026 = scenario_forecast[scenario_forecast['ds'].dt.year == 2026]
+
+fig3, ax3 = plt.subplots(figsize=(10, 4))
+ax3.plot(forecast_2026['ds'], forecast_2026['yhat'], label="Baseline Forecast")
+ax3.plot(scenario_2026['ds'], scenario_2026['yhat'], label="Scenario Forecast", linestyle="--")
+ax3.set_title("Scenario Forecast for 2026")
+ax3.set_xlabel("Date")
+ax3.set_ylabel("Milk Price")
+ax3.legend()
+st.pyplot(fig3, clear_figure=True)
+
